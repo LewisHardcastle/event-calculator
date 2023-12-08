@@ -1,18 +1,31 @@
 import { useState } from 'react';
 import './App.css';
 
-function App() {
+function App2() {
+  const [globalCosts, setGlobalCosts] = useState(0);
+  const [globalPeople, setGlobalPeople] = useState(0);
+  const [globalTicketRevenue, setGlobalTicketRevenue] = useState(0);
+  const [globalOtherRevenue, setGlobalOtherRevenue] = useState(0);
+
   return (
     <div>
-      <Costs />
-      <TicketCalculator />
-      <Revenue />
-      {/* <Output /> */}
+      <Costs setGlobalCosts={setGlobalCosts} />
+      <TicketCalculator
+        setGlobalPeople={setGlobalPeople}
+        setGlobalTicketRevenue={setGlobalTicketRevenue}
+      />
+      <Revenue setGlobalOtherRevenue={setGlobalOtherRevenue} />
+      <Output
+        globalCosts={globalCosts}
+        globalPeople={globalPeople}
+        globalTicketRevenue={globalTicketRevenue}
+        globalOtherRevenue={globalOtherRevenue}
+      />
     </div>
   );
 }
 
-function Costs() {
+function Costs({ setGlobalCosts }) {
   const [venueCost, setVenueCost] = useState(0);
   const [entertainmentCost, setEntertainmentCost] = useState(0);
   const [marketingCost, setMarketingCost] = useState(0);
@@ -24,6 +37,8 @@ function Costs() {
     marketingCost +
     staffingCost +
     miscellaneousCost;
+
+  setGlobalCosts(totalCost);
 
   return (
     <div>
@@ -66,7 +81,7 @@ function Costs() {
   );
 }
 
-function TicketCalculator() {
+function TicketCalculator({ setGlobalPeople, setGlobalTicketRevenue }) {
   // Create a state to manage all phases
   const [phases, setPhases] = useState([]);
 
@@ -99,14 +114,19 @@ function TicketCalculator() {
     (acc, phase) => acc + phase.ticketPrice * phase.expectedSales,
     0
   );
+
+  setGlobalTicketRevenue(totalTicketRevenue);
+
   const totalTickets = phases.reduce(
     (acc, phase) => acc + phase.expectedSales,
     0
   );
 
+  setGlobalPeople(totalTickets);
+
   return (
     <div>
-      <div className="cost-form">
+      <div>
         <h3 className="head">Ticket Calculator:</h3>
         {phases.map((phase, index) => (
           <div key={index}>
@@ -137,7 +157,7 @@ function TicketCalculator() {
   );
 }
 
-function Revenue() {
+function Revenue({ setGlobalOtherRevenue }) {
   const [sponsorshipRevenue, setSponsorshipRevenue] = useState(0);
   const [merchandiseRevenue, setMerchandiseRevenue] = useState(0);
   const [miscellaneousRevenue, setMiscellaneousRevenue] = useState(0);
@@ -145,12 +165,14 @@ function Revenue() {
   const totalRevenue =
     sponsorshipRevenue + merchandiseRevenue + miscellaneousRevenue;
 
+  setGlobalOtherRevenue(totalRevenue);
+
   return (
     <div>
       <div className="cost-form">
         <h3 className="head">Other Revenue:</h3>
         <form>
-          <label>Sponsership Revenue:</label>
+          <label>Sponsorship Revenue:</label>
           <input
             value={sponsorshipRevenue}
             onChange={e => setSponsorshipRevenue(Number(e.target.value))}
@@ -170,9 +192,33 @@ function Revenue() {
           <br></br>
         </form>
       </div>
-      <h3>Total Revenue (Including Tickets): £{totalRevenue}</h3>
     </div>
   );
 }
 
-export default App;
+function Output({
+  globalCosts,
+  globalPeople,
+  globalTicketRevenue,
+  globalOtherRevenue,
+}) {
+  const worstCase = globalCosts * 1.5;
+
+  return (
+    <div>
+      <h3>Total Costs: £{globalCosts}</h3>
+      <h3>Expected Atendees: {globalPeople} people</h3>
+      <h3>Total Revenue: £{globalTicketRevenue + globalOtherRevenue}</h3>
+      <h3>
+        Expected Profit: £
+        {globalTicketRevenue + globalOtherRevenue - globalCosts}
+      </h3>
+      <h3>
+        Worst case scenario (Profit with 1.5x costs): £
+        {globalTicketRevenue + globalOtherRevenue - worstCase}
+      </h3>
+    </div>
+  );
+}
+
+export default App2;
