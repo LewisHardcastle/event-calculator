@@ -1,0 +1,92 @@
+/* General styling */
+body {
+  display: flex;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container styling */
+div {
+  margin: 20px;
+}
+
+/* Headings */
+h3.head {
+  color: #333;
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+/* Form styling */
+.cost-form-inputs {
+  display: flex;
+}
+
+.cost-form-revenue {
+  display: flex;
+}
+
+.cost-form,
+.ticket-calculator-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Buttons */
+button {
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #4cae4c;
+}
+
+/* Output styling */
+.output {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.output h3 {
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+/* Phase styling */
+.phase {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
